@@ -15,9 +15,17 @@ fun calcFuel(massList: Collection<Int>): Int {
     return totalFuel
 }
 
+fun getTotalModuleFuel(mass: Int): Int {
+    if (mass <= 0) return 0
+
+}
+
 fun main() {
-    /* DAY 1.1 */
+    /* Part 1 */
     val modulesMass = mutableListOf<Int>()
     File("input.txt").forEachLine { modulesMass.add(parseInt(it)) }
-    println(calcFuel(modulesMass))  // Result: 3291356
+//    println(calcFuel(modulesMass))  // Result: 3291356
+
+    /* Part 2 */
+
 }
