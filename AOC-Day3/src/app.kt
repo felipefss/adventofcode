@@ -29,8 +29,8 @@ fun buildPoints(w: List<String>): MutableList<List<Int>> {
     return wire
 }
 
-fun findIntersection() {
-
+fun findIntersection(w1: List<List<Int>>, w2: List<List<Int>>) {
+    val size = if (w1.size > w2.size) w2.size else w1.size
 }
 
 fun main() {
@@ -43,4 +43,7 @@ fun main() {
 
     val wire1 = buildPoints(allWires[0])
     val wire2 = buildPoints(allWires[1])
+
+    println(wire1)
+    println(wire2)
 }
