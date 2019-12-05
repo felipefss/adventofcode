@@ -45,5 +45,19 @@ fun main() {
             val strList = str.split(',')
             strList.map { intCode.add(parseInt(it)) }
         }
-    println(readOpCode(intCode))
+    
+    for (i in 0..99) {
+        for (j in 0..99) {
+            val cleanIntCode = intCode.toMutableList()
+            cleanIntCode[1] = i
+            cleanIntCode[2] = j
+            val res: List<Int> = readOpCode(cleanIntCode).toList()
+            if (res[0] == 19690720) {
+                println("noun: $i")
+                println("verb: $j")
+                println("Answer is ${100 * i + j}")
+                return
+            }
+        }
+    }
 }
