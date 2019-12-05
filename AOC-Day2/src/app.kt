@@ -1,4 +1,5 @@
 import java.io.File
+import java.lang.Integer.parseInt
 
 fun calculate(op: Int, list: Collection<Int>, index: Int): MutableList<Int> {
     val newCode = list.toMutableList()
@@ -25,13 +26,9 @@ fun readOpCode(intCode: Collection<Int>): Collection<Int> {
     var newCode = intCode.toMutableList()
 
     for (i in newCode.indices step 4) {
-        when (newCode[i]) {
-            1 -> {
-                newCode = calculate(1, newCode, i)
-            }
-            2 -> {
-                newCode = calculate(2, newCode, i)
-            }
+        newCode = when (newCode[i]) {
+            1 -> calculate(1, newCode, i)
+            2 -> calculate(2, newCode, i)
             99 -> {
                 return newCode
             }
@@ -43,7 +40,10 @@ fun readOpCode(intCode: Collection<Int>): Collection<Int> {
 }
 
 fun main() {
-    val intCode = File("input.txt").readLines()
-    val intCodeList = intCode.toList()
-    println(readOpCode(mutableListOf(1,9,10,3,2,3,11,0,99,30,40,50)))
+    val intCode = mutableListOf<Int>()
+        File("input.txt").forEachLine { str ->
+            val strList = str.split(',')
+            strList.map { intCode.add(parseInt(it)) }
+        }
+    println(readOpCode(intCode))
 }
