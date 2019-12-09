@@ -1,4 +1,2 @@
-class Wire {
-    val points = mutableListOf<Point>()
-    val lines = mutableListOf<Line>()
+class Wire constructor(val points: MutableList<Point>, val lines: MutableList<Line>) {
 }
