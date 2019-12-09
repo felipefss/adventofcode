@@ -1,6 +1,18 @@
 import kotlin.math.abs
 
 class Line constructor(private val start: Point, private val end: Point) {
+    var steps = 0
+
+    fun addSteps(value: Int) {
+        this.steps += value
+    }
+
+    fun calcSteps(p: Point) = when {
+        p.x != this.start.x /*|| p.x != this.end.x*/ -> abs(this.start.x - p.x)
+        p.y != this.start.y /*|| p.y != this.end.y*/ -> abs(this.start.y - p.y)
+        else -> 0
+    }
+
     override fun toString(): String {
         return "$start -> $end"
     }
