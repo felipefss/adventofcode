@@ -16,6 +16,12 @@ fun doOperation(op: Int, list: Collection<Int>, index: Int, params: List<Int>): 
         2 -> {
             newCode[outputIndex] = a * b
         }
+        7 -> {
+            newCode[outputIndex] = if (a < b) 1 else 0
+        }
+        8 -> {
+            newCode[outputIndex] = if (a == b) 1 else 0
+        }
     }
 
     return newCode
@@ -40,6 +46,27 @@ fun doIO(op: Int, list: Collection<Int>, index: Int, paramC: Int): MutableList<I
     return newCode
 }
 
+fun doJump(op: Int, list: List<Int>, index: Int, params: List<Int>): Int {
+    val parm1 = if (params[0] == 0) list[index+1] else (index + 1)
+    val parm2 = if (params[1] == 0) list[index+2] else (index + 2)
+    var res: Int = -1
+
+    when (op) {
+        5 -> {
+            if (list[parm1] != 0) {
+                res = list[parm2]
+            }
+        }
+        6 -> {
+            if (list[parm1] == 0) {
+                res = list[parm2]
+            }
+        }
+    }
+
+    return res
+}
+
 fun readParams(code: String): Pair<List<Int>, Int> {
     val opcode: Int = code.takeLast(2).toString().toInt()
     val params = code.dropLast(2).reversed().map { it.toString().toInt() }.toList()
@@ -59,13 +86,17 @@ fun readOpCode(intCode: Collection<Int>) {
     while(i < newCode.size) {
         val (params, opcode) = readParams(newCode[i].toString())
         when (opcode) {
-            1, 2 -> {
+            1, 2, 7, 8 -> {
                 newCode = doOperation(opcode, newCode, i, params)
                 i += 4
             }
             3, 4 -> {
                 newCode = doIO(opcode, newCode, i, params[0])
                 i += 2
+            }
+            5, 6 -> {
+                val newInstruction = doJump(opcode, newCode, i, params)
+                i = if (newInstruction == -1) (i + 3) else newInstruction
             }
             99 -> {
                 return
@@ -83,15 +114,4 @@ fun main() {
         }
 
     readOpCode(intCode)
-//    println("\nDiagnostic code: $diagCode")
-//    val code = "143"
-//    val opcode: Int = code.takeLast(2).toString().toInt()
-//    val params = code.dropLast(2).reversed().map { it.toString().toInt() }.toMutableList()
-//    val finalParams = mutableListOf<Int>()
-//
-//    for (i in 0..2) {
-//        finalParams.add(params.getOrElse(i) { 0 })
-//    }
-//    println(finalParams)
-//    println(opcode)
 }
