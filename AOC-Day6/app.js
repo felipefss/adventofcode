@@ -1,20 +1,14 @@
+const _ = require('lodash');
 const fs = require('fs');
 const readline = require('readline');
+const allObjs = [];
 const spaceObjs = {};
 
-function addEntry(entry, source) {
-    const [k, v] = entry;
-
-    if (Object.keys(source).length == 0) {
-        source[k] = { [v]: {} };
-    } else if (source[k]) {
-        source[k][v] = {};
-    } else if (source[v]) {
-        source[k] = { [v]: JSON.parse(JSON.stringify(source[v])) };
-    }
-
-    for (let [key, val] of Object.entries(source)) {
-
+function recursiveOrganize() {
+    let i = 0;
+    while(allObjs.length > 0) {
+        const [k, v] = allObjs.shift();
+        console.log(i++)
     }
 }
 
@@ -24,19 +18,18 @@ const rl = readline.createInterface({
 
 rl.on('line', (input) => {
     const entry = input.split(')');
-    const obj = {
-        [entry[0]]: entry[1]
-    };
+
+    if (!allObjs.hasOwnProperty(entry[0])) {
+        allObjs[entry[0]] = {};
+    }
+
+    if (entry[0] == 'COM') {
+        spaceObjs['COM'] = { [entry[1]]: {} };
+    } else {
+        allObjs.push({ [entry[0]]: [entry[1]] });
+    }
 });
 
 rl.on('close', () => {
-    console.log('finish')
+    recursiveOrganize();
 })
-
-const o = {
-    d: { i: {}, e: {} }
-};
-o.c = { d: JSON.parse(JSON.stringify(o.d)) }
-delete o.d
-o.c.d.e.f = {}
-console.log(o.c.d)
