@@ -1,0 +1,5 @@
+{
+  "python.linting.pylintEnabled": true,
+  "python.linting.enabled": true,
+  "prettier.tabWidth": 4
+}
