@@ -1,6 +1,5 @@
 import re
 
-# Part 1
 passwords = []
 
 with open('input.txt', 'r') as file:
@@ -13,6 +12,7 @@ with open('input.txt', 'r') as file:
         line = file.readline()
 
 
+# Part 1
 def isPassValid_1(pwd, policy):
     rgx = re.search(r'(\d+-\d+) (\w)', policy)
     letter = rgx.group(2)
@@ -23,6 +23,7 @@ def isPassValid_1(pwd, policy):
     return min_o <= count <= max_o
 
 
+# Part 2
 def isPassValid_2(pwd, policy):
     rgx = re.search(r'(\d+-\d+) (\w)', policy)
     letter = rgx.group(2)
