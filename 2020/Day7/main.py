@@ -54,6 +54,15 @@ def part1(bags, my_bag, rules):
     return output
 
 
+def part2(bags, rules):
+    total = 0
+
+    for b, q in bags.items():
+        total += q + q * part2(rules[b], rules)
+
+    return total
+
+
 if __name__ == "__main__":
     data = get_input('input.txt')
     rules = build_rules(data)
@@ -64,3 +73,6 @@ if __name__ == "__main__":
         if r != 'shiny gold':
             part1_count += 1 if part1(bags, 'shiny gold', rules) else 0
     print(part1_count)
+
+    # Part 2
+    print(part2(rules['shiny gold'], rules))
