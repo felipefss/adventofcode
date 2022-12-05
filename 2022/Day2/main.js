@@ -60,8 +60,6 @@ inputArray.then(res => {
     const myIndex = outcomeValue + indexOponent === 3 ? 0 : inputMapping2.indexOf(me);
 
     points += myIndex + 1;
-
-    // console.log(oponent, action, me, indexOponent, outcomeValue, myIndex, points)
     return sum + points;
   }, 0);
   console.log(total2)
