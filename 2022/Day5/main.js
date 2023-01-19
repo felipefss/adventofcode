@@ -27,7 +27,9 @@ convertFileToArray('input.txt').then(res => {
   }
 
   const instructions = res.slice(res.indexOf('') + 1);
+  const stacks2 = structuredClone(stacks);
 
+  // Part 1
   for (let i of instructions) {
     try {
       const [_, move, from, to] = i.match(/move (\d+) from (\d) to (\d)/);
@@ -42,7 +44,23 @@ convertFileToArray('input.txt').then(res => {
     }
   }
 
-  console.log(stacks)
-  const result = stacks.reduce((acc, stack) => acc + stack[0], '');
+  // console.log(stacks)
+  // const result = stacks.reduce((acc, stack) => acc + stack[0], '');
+  // console.log(result)
+
+  for (let i of instructions) {
+    const [_, move, from, to] = i.match(/move (\d+) from (\d) to (\d)/);
+
+    const movedCrates = [];
+
+    for (let k = 0; k < move; k++) {
+      movedCrates.push(stacks2[from - 1].shift());
+    }
+
+    stacks2[to - 1].unshift(...movedCrates);
+  }
+
+  console.log(stacks2)
+  const result = stacks2.reduce((acc, stack) => acc + stack[0], '');
   console.log(result)
 });
