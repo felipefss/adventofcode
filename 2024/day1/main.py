@@ -7,32 +7,42 @@ sys.path.append(
 
 from util.io import readfile
 
-INPUT_FILE = "input.txt"
+INPUT_FILE = "example.txt"
 
 
-def part1():
-    id_input: list[str] = readfile(INPUT_FILE)
-    left = []
-    right = []
-
-    for pair in id_input:
-        [a, b] = pair.replace("   ", ",").split(",")
-        left.append(int(a))
-        right.append(int(b))
-
-    left.sort()
-    right.sort()
+def part1(left: list[int], right: list[int]):
+    sorted_left = sorted(left)
+    sorted_right = sorted(right)
 
     total = 0
 
-    for i in range(len(left)):
-        total += abs(left[i] - right[i])
+    for i in range(len(sorted_left)):
+        total += abs(sorted_left[i] - sorted_right[i])
 
     print(total)
 
 
-def part2():
-    pass
+def part2(left: list[int], right: list[int]):
+    score = 0
+
+    for num in left:
+        appearances = right.count(num)
+        if appearances > 0:
+            score += num * appearances
+
+    print(score)
 
 
-part1()
+if __name__ == "__main__":
+    ids_input: list[str] = readfile(INPUT_FILE)
+
+    left = []
+    right = []
+
+    for pair in ids_input:
+        [a, b] = pair.replace("   ", ",").split(",")
+        left.append(int(a))
+        right.append(int(b))
+
+    # part1(left, right)
+    part2(left, right)
