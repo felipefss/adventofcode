@@ -1,4 +1,4 @@
-def readfile(filename):
+def readfile(filename: str) -> list[str]:
     with open(filename, encoding="utf-8") as file:
         lines = []
 
